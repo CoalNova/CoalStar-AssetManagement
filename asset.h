@@ -5,11 +5,7 @@ namespace Coal
 {
 	namespace CoalTypes
 	{
-		/// <summary>
-		/// Asset virtual template
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		template<class T>
+
 		class Asset
 		{
 		public:
@@ -17,59 +13,50 @@ namespace Coal
 			/// Constructor
 			/// </summary>
 			/// <param name="assetID">Unique Asset ID Number</param>
-			Asset<T>(unsigned int assetID) :_assetID(assetID), payload(nullptr), dependants(new size_t)
-			{
-				*dependants = 1;
-				printf("Generated Asset %u\n", _assetID);
-			}
+			Asset(unsigned int assetID);
 
 			/// <summary>
 			/// Move Constructor
 			/// </summary>
 			/// <param name="asset"></param>
-			Asset(Asset&& asset) noexcept : _assetID(asset._assetID), payload(asset.payload), dependants(asset.dependants) {}
+			Asset(Asset&& asset);
 
 			/// <summary>
 			/// Copy Constructor
 			/// </summary>
 			/// <param name="asset"></param>
-			Asset(Asset& asset) : _assetID(asset._assetID), payload(asset.payload), dependants(asset.dependants) { *asset.dependants += 1; }
+			Asset(Asset& asset);
 
 			/// <summary>
 			/// Assignment Operator is Copy
 			/// </summary>
 			/// <param name="asset"></param>
-			Asset operator=(Asset rhd) { *dependants += 1; return rhd; }
+			Asset operator=(Asset rhd);
 
 			/// <summary>
 			/// Destructor
 			/// </summary>
-			~Asset()
-			{
-
-				printf("Destroyed Asset %u\n", _assetID);
-				delete payload; 
-				delete dependants;
-			}
+			~Asset();
 
 			/// <summary>
 			/// Returns Protected Asset ID
 			/// </summary>
-			const unsigned int GetID() const { return _assetID; }
+			const unsigned int GetID()const;
 
 			/// <summary>
 			/// Increments And Returns Dependancy Count
 			/// </summary>
-			const size_t AddDependant() { *dependants += 1; return *dependants; }
+			const size_t AddDependant();
 
 			/// <summary>
 			/// Decrements And Returns Dependancy Count
 			/// </summary>
-			const size_t RemoveDependant() { *dependants -= 1; return *dependants; }
+			const size_t RemoveDependant();
+
+			virtual bool NeedsLoaded() = 0;
 
 		protected:
 			unsigned int _assetID;
-			T* payload;
 			size_t* dependants;
 		};
 
