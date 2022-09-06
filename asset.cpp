@@ -5,14 +5,7 @@ namespace Coal
 {
 	namespace CoalTypes
 	{
-		Asset::Asset(unsigned int assetID) :_assetID(assetID), dependants(nullptr)
-		{
-			if (NeedsLoaded())
-			{
-				dependants = new size_t;
-				*dependants = 1;
-			}
-		}
+		Asset::Asset(unsigned int assetID) :_assetID(assetID), dependants(nullptr) {		}
 		Asset::Asset(Asset&& asset) noexcept : _assetID(asset._assetID), dependants(asset.dependants) {}
 		Asset::Asset(Asset& asset) : _assetID(asset._assetID), dependants(asset.dependants) { *asset.dependants += 1; }
 		Asset::~Asset()

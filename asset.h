@@ -19,7 +19,7 @@ namespace Coal
 			/// Move Constructor
 			/// </summary>
 			/// <param name="asset"></param>
-			Asset(Asset&& asset);
+			Asset(Asset&& asset) noexcept;
 
 			/// <summary>
 			/// Copy Constructor
@@ -52,8 +52,6 @@ namespace Coal
 			/// Decrements And Returns Dependancy Count
 			/// </summary>
 			const size_t RemoveDependant();
-
-			virtual bool NeedsLoaded() = 0;
 
 		protected:
 			unsigned int _assetID;

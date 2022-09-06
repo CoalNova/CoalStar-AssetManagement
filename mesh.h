@@ -8,8 +8,9 @@ namespace Coal
 		class Mesh : public Asset
 		{
 		public:
+			Mesh(const unsigned int& meshID);
 			void Print();
-			NeedsLoaded
+			bool NeedsLoaded();
 		protected:
 		};
 	}

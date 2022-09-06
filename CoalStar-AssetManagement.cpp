@@ -13,12 +13,13 @@ int main()
 
 	for (int i = 0; i < 16; i++)
 	{
-		meshes[i] = RequestMesh(i);
+		meshes[i] = new Mesh(i);
 	}
 
 	for (int i = 0; i < 16; i++)
 	{
-		ReturnMesh(meshes[i]);
+
+		delete meshes[i];
 	}
 
 }
