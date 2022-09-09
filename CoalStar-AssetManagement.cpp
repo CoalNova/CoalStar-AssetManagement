@@ -1,25 +1,48 @@
 #include <stdio.h>
+#include <memory>
 #include "meshmanager.h"
+#include "mesh.h"
 
 
 
 int main()
 {
+	//just jam that here to avoid longer declarations
 	using namespace Coal;
-	using namespace CoalTypes;
-	using namespace CoalSystem;
 
-	Mesh* meshes[16];
-
-	for (int i = 0; i < 16; i++)
+	//declare test assortment
+	const unsigned int soize = 72;
+	//scope block to simulate destruction of useage/scope
 	{
-		meshes[i] = new Mesh(i);
+		//local array of mesh assets
+		std::shared_ptr<Mesh> meshes[soize];
+
+		//fill array, passing in overlapping 
+		for (int i = 0; i < soize; i++)
+		{
+			meshes[i] = RequestMesh(i / 8 + 1 / 2);
+		}
+
+		//print out full mesh asset list
+		PrintAssetList();
+
+		//partially remove entries by replacement
+		for (int i = 0; i < soize / 3; i++)
+		{
+			meshes[i] = 0;
+		}
+		//perform "not garbage collection" of meshes
+		CleanMeshAssets();
+
+		//print again to show after partial removal
+		PrintAssetList();
 	}
 
-	for (int i = 0; i < 16; i++)
-	{
+	//perform cleaning after out of scope removal
+	CleanMeshAssets();
 
-		delete meshes[i];
-	}
+	//print list, should be empty
+	PrintAssetList();
+
 
 }
