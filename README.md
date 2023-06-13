@@ -1,4 +1,5 @@
 # CoalStar-AssetManagement
+![pretty command line text](https://raw.githubusercontent.com/CoalNova/CoalStar-AssetManagement/main/img/demo.png)
 ## The conceptual system used in the CoalStar project which manages assets in memory.
 
 The purpose for this is to demonstrate a standardized memory handling sequence for game assets. It is designed to facilitate a seamless asset swapping environment, with a hierarchical design and multiple users per asset. The goal is that as asset requests cascade downward (setpiece -> mesh -> material -> shader program), the request will utilize already loaded assets, or else load any necessary data from disk. 
